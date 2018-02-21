@@ -14,12 +14,13 @@ function ini() {
         videoActu = 1;
         var nodo = `<video autoplay id="puesto" >
                         <source src="video/anime2.mp4" type="video/mp4"> 
+                         <track label="Español" kind="subtitles" srclang="es" src="video/anime2.vtt" default="default">
                     </video>
- <div id="tiempo">
-
+                        <div id="tiempo"> 
                             <span id=minutos>0</span>/<span id=total>0</span>
                         </div>`
         quitarRojo();
+
 
         ele1.setAttribute("class", "reproduciendo")
 
@@ -28,6 +29,8 @@ function ini() {
         img.setAttribute("class", "iconito")
         ele1.appendChild(img)
         bloqueVideo.innerHTML = nodo;
+ 
+        document.getElementById("puesto").textTracks[0].mode = 'showing';
 
     });
 
@@ -140,6 +143,10 @@ function pasar() {
     document.getElementById("total").innerHTML = Math.round(document.getElementById("puesto").duration);
     if (document.getElementById("puesto").currentTime >= document.getElementById("puesto").duration) {
         videoActu++;
+
+        if (videoActu >= 6) {
+            videoActu = 0;
+        }
         document.getElementById("ele" + videoActu).click();
     }
 }
